@@ -7,8 +7,6 @@ import { SinglePortfolioQuery } from '../interfaces';
 import { SeoQuery } from '../interfaces/seo';
 import { ImageFluid } from '../interfaces/common';
 
-
-
 const PortfolioTemplate = ({ data, location }: {data: SinglePortfolioQuery & SeoQuery, location: any}) => {
   return (
     <Layout headerTransparent={true}>
