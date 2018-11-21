@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Section = styled<{background?: string}, 'section'>('section')`
+export const Section = styled('section')<{background?: string}>`
   position: relative;
   display: flex;
   flex-wrap: wrap;
