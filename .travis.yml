@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+- "10"
+
+branches:
+  only:
+  - master
+  - tests
+  - /^greenkeeper/.*$/
+
+install:
+- yarn global add typescript
+- yarn install
+
+script:
+- yarn run lint
+- yarn run build
+- yarn run test:coveralls
