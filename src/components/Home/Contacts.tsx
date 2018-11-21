@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Section } from './Styled';
+import { Section } from '../Styled';
 import { media } from '../../utils/styled';
 import { graphql, StaticQuery } from 'gatsby';
 import { ContactQuery } from '../../interfaces';

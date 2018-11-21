@@ -2,44 +2,10 @@ import React, { PureComponent } from 'react';
 import { Link, GatsbyLinkProps } from 'gatsby';
 import styled from 'styled-components';
 import { debounce } from 'lodash';
+import { Navbar } from './Navbar';
+import { HeaderTitle, HeaderWrapper } from './HeaderSections';
 
-const HeaderWrapper = styled.header`
-  background: teal;
-  padding: 0 3rem;
-`;
-
-const Navbar = styled<{transparent: boolean}, 'nav'>('nav')`
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
-  position: fixed;
-  width: 100%;
-  z-index: 150;
-  top: 0;
-  left: 0;
-  color: white;
-  transition: background-color .1s;
-  background: ${props => props.transparent ? 'transparent' : '#2f365f'};
-`;
-
-const HeaderBrand = styled.div`
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  margin-right: 1.5rem;
-`;
-
-const HeaderTitle = styled.span`
-  font-weight: 600;
-  font-size: 1.5rem;
-  letter-spacing: -.05em;
-`;
-
-const StyledLink = styled<GatsbyLinkProps<any>, any>(Link)`
+const StyledLink = styled(Link)<GatsbyLinkProps<any>>`
   color: white;
   text-decoration: none;
 `;
@@ -78,7 +44,7 @@ export default class Header extends PureComponent<HeaderProps, HeaderState> {
   };
 
   componentDidMount() {
-    this.setState({transparent: this.props.transparent})
+    this.setState({transparent: this.props.transparent});
     window.addEventListener('scroll', this.handleScrollDebounced);
   }
 

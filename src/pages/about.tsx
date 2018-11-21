@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { HelmetDatoCms } from 'gatsby-source-datocms';
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import { Content, FeaturedImage, FeaturedSection, MainSection, ArticleContent } from '../components/Styled';
 import { AboutQuery } from '../interfaces';
 import { ImageFixed, ImageFluid } from '../interfaces/common';
