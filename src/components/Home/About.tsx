@@ -35,7 +35,7 @@ export const About = () => (
       `} render={(data: any) => (
         <AboutQuoteContent>
           {data.datoCmsAbout.homepage}
-          <p><Link to="/about">More...</Link></p>
+          <span><br/><Link to="/about">More...</Link></span>
         </AboutQuoteContent>
       )}/>
     </Wrapper>
