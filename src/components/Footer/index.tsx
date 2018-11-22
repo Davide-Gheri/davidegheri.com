@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Ref } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
@@ -58,14 +58,38 @@ const FooterListItem = (props: FooterThanks) => (
   </li>
 );
 
+export const PureFooter = React.forwardRef(({data}: {data: FooterQuery}, ref: Ref<any>) => (
+  <FooterWrapper ref={ref}>
+    <FooterHidden>
+      <h3>davidegheri.com is built thanks to:</h3>
+      {data.datoCmsFooter.thanks && (
+        <FooterListWrapper>
+          {chunk(data.datoCmsFooter.thanks, 3).map((chunk, k) => (
+            <FooterList key={k}>
+              {chunk.map((thanks, k) => (
+                <FooterListItem key={k} {...thanks}/>
+              ))}
+            </FooterList>
+          ))}
+        </FooterListWrapper>
+      )}
+    </FooterHidden>
+    <FooterVisible>
+      <p>DavideGheri.com | Made with ♥ by Davide Gheri</p>
+    </FooterVisible>
+  </FooterWrapper>
+));
+
 export default class Footer extends PureComponent<{}, {}> {
-  ref: any;
+  ref = React.createRef<any>();
 
   componentDidMount() {
-    const footer = ReactDOM.findDOMNode(this.ref);
-    if (footer) {
-      const styles = window.getComputedStyle((footer as Element));
-      document.body.style.marginBottom = styles.getPropertyValue('height');
+    if (this.ref.current) {
+      const footer = ReactDOM.findDOMNode(this.ref.current);
+      if (footer) {
+        const styles = window.getComputedStyle((footer as Element));
+        document.body.style.marginBottom = styles.getPropertyValue('height');
+      }
     }
   }
 
@@ -81,27 +105,8 @@ export default class Footer extends PureComponent<{}, {}> {
           }
         }
       `} render={(data: FooterQuery) => {
-        console.log(data.datoCmsFooter)
         return (
-          <FooterWrapper ref={node => this.ref = node}>
-            <FooterHidden>
-              <h3>davidegheri.com is built thanks to:</h3>
-              {data.datoCmsFooter.thanks && (
-                <FooterListWrapper>
-                  {chunk(data.datoCmsFooter.thanks, 3).map((chunk, k) => (
-                    <FooterList key={k}>
-                      {chunk.map((thanks, k) => (
-                        <FooterListItem key={k} {...thanks}/>
-                      ))}
-                    </FooterList>
-                  ))}
-                </FooterListWrapper>
-              )}
-            </FooterHidden>
-            <FooterVisible>
-              <p>DavideGheri.com | Made with ♥ by Davide Gheri</p>
-            </FooterVisible>
-          </FooterWrapper>
+          <PureFooter data={data} ref={this.ref}/>
         );
       }}/>
     );
