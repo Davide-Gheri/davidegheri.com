@@ -6,7 +6,7 @@ export const Content = styled.div`
   padding: 70px 100px 0;
   min-height: 230px;
   font-family: Georgia, serif;
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   line-height: 1.6em;
   background: #fff;
   caret-color: transparent;
@@ -41,6 +41,14 @@ export const Content = styled.div`
     background: rgba(39, 44, 49, 0.15);
     filter: blur(5px);
     transform: rotate(5deg);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1;
   }
   h1,
   h2,
