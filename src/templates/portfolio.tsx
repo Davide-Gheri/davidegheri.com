@@ -1,13 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { HelmetDatoCms } from 'gatsby-source-datocms';
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import { Content, FeaturedSection, FeaturedImage, MainSection, ArticleContent } from '../components/Styled';
 import { SinglePortfolioQuery } from '../interfaces';
 import { SeoQuery } from '../interfaces/seo';
 import { ImageFluid } from '../interfaces/common';
-
-
 
 const PortfolioTemplate = ({ data, location }: {data: SinglePortfolioQuery & SeoQuery, location: any}) => {
   return (

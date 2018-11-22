@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import { About, FullScreenContent, Portfolio, Contacts } from '../components/Home';
 import Helmet from 'react-helmet';
 import { SeoQuery } from '../interfaces/seo';

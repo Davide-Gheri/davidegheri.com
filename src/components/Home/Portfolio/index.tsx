@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { StaticQuery, graphql } from 'gatsby';
 import { media } from '../../../utils/styled';
-import { Section, SectionTitle, SectionPadding } from '../Styled';
+import { Section, SectionTitle, SectionPadding } from '../../Styled';
 import Item from './Item';
 import { PortfolioQuery } from '../../../interfaces';
 
