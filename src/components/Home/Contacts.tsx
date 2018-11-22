@@ -10,6 +10,7 @@ const ContactsPadding = styled.div`
   z-index: 10;
   padding: .75rem;
   color: #ffffff;
+  width: 100%;
 `;
 
 const ContactsTitle = styled.h2`
@@ -20,6 +21,7 @@ const ContactsTitle = styled.h2`
 const ContactsContent = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 `;
 
 const ContactsColumn = styled.div`
