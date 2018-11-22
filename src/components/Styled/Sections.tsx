@@ -18,7 +18,7 @@ export const FeaturedImage = styled(Img)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: -1;
+  z-index: 1;
 `;
 
 export const MainSection = styled.section`
@@ -33,8 +33,11 @@ export const ArticleContent = styled.article`
   width: 100%;
   padding: 0 1.5rem;
   margin: 0 auto;
+  ${media.md`
+    padding-bottom: 5rem;
+  `}
   ${media.lg`
     padding: 0;
-    width: 60%;
+    padding-bottom: 10rem;
   `};
 `;

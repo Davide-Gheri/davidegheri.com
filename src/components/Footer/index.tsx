@@ -28,6 +28,7 @@ const FooterVisible = styled.section`
 
 const FooterHidden = styled.section`
   padding: 2rem 0 1rem;
+  background: #e7f0f7;
 `;
 
 const FooterListWrapper = styled.div`
@@ -39,6 +40,7 @@ const FooterListWrapper = styled.div`
 
 const FooterList = styled.ul`
   list-style: none;
+  padding: 0;
   li {
     margin-bottom: .5rem;
   }

@@ -1,15 +1,29 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
 import { HelmetDatoCms } from 'gatsby-source-datocms';
 import Layout from '../components/Layout';
-import { Content, FeaturedSection, FeaturedImage, MainSection, ArticleContent } from '../components/Styled';
+import {
+  Content,
+  MainSection,
+  ArticleContent,
+  PortfolioBackground,
+  PortfolioWrapper,
+  PortfolioHeader,
+  PortfolioMeta,
+  PortfolioTitle,
+  PortfolioMetaDate,
+  DateDivider,
+  CategoryLink,
+  PortfolioImage,
+} from '../components/Styled';
 import { SinglePortfolioQuery } from '../interfaces';
 import { SeoQuery } from '../interfaces/seo';
 import { ImageFluid } from '../interfaces/common';
 
 const PortfolioTemplate = ({ data, location }: {data: SinglePortfolioQuery & SeoQuery, location: any}) => {
   return (
-    <Layout headerTransparent={true}>
+    <Layout headerTransparent={false}>
       {data.datoCmsPortfolio.seoMetaTags && (
         <HelmetDatoCms seo={data.datoCmsPortfolio.seoMetaTags}>
           <script type="application/ld+json">
@@ -31,20 +45,34 @@ const PortfolioTemplate = ({ data, location }: {data: SinglePortfolioQuery & Seo
           </script>
         </HelmetDatoCms>
       )}
-      {data.datoCmsPortfolio.image && (
-        <FeaturedSection className="transparent-checker">
-          <figure>
-            <FeaturedImage fluid={data.datoCmsPortfolio.image.fluid}/>
-          </figure>
-        </FeaturedSection>
-      )}
-      <MainSection>
-        {(data.datoCmsPortfolio.contentNode && data.datoCmsPortfolio.contentNode.childMarkdownRemark) && (
-          <ArticleContent>
-            <Content dangerouslySetInnerHTML={{__html: data.datoCmsPortfolio.contentNode.childMarkdownRemark.html as string}}/>
-          </ArticleContent>
-        )}
-      </MainSection>
+      <PortfolioBackground>
+        <PortfolioWrapper>
+          <PortfolioHeader>
+            <PortfolioMeta>
+              <PortfolioMetaDate>{data.datoCmsPortfolio.updatedAt}</PortfolioMetaDate>
+              {data.datoCmsPortfolio.tags && (
+                <>
+                  <DateDivider>/</DateDivider>
+                  <CategoryLink to={`/${data.datoCmsPortfolio.tags[0].slug}`}>{data.datoCmsPortfolio.tags[0].title}</CategoryLink>
+                </>
+              )}
+            </PortfolioMeta>
+            <PortfolioTitle>{data.datoCmsPortfolio.title}</PortfolioTitle>
+          </PortfolioHeader>
+          {data.datoCmsPortfolio.image && (
+            <PortfolioImage className="transparent-checker">
+              <Img style={{height: '100%'}} fluid={data.datoCmsPortfolio.image.fluid}/>
+            </PortfolioImage>
+          )}
+          <MainSection>
+            {(data.datoCmsPortfolio.contentNode && data.datoCmsPortfolio.contentNode.childMarkdownRemark) && (
+              <ArticleContent>
+                <Content dangerouslySetInnerHTML={{__html: data.datoCmsPortfolio.contentNode.childMarkdownRemark.html as string}}/>
+              </ArticleContent>
+            )}
+          </MainSection>
+        </PortfolioWrapper>
+      </PortfolioBackground>
     </Layout>
   );
 };
@@ -60,7 +88,7 @@ export const query = graphql`
     }
     datoCmsPortfolio(id: { eq: $id }) {
       title
-      updatedAt
+      updatedAt(formatString: "LL")
       contentNode {
         childMarkdownRemark {
           html
@@ -68,9 +96,13 @@ export const query = graphql`
         }
       }
       image {
-        fluid(imgixParams: {auto: "compress"}) {
+        fluid(maxWidth: 1440, imgixParams: {auto: "compress"}) {
           ...GatsbyDatoCmsFluid
         }
+      }
+      tags {
+        title
+        slug
       }
       seoMetaTags {
         tags {
