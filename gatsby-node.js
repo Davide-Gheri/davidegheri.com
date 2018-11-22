@@ -32,8 +32,8 @@ exports.createPages = ({ actions, graphql }) => {
     `).then(result => {
     result.data.allDatoCmsPortfolio.edges.forEach(({ node }) => {
       createPage({
-        path: `/${node.slug}`,
-        component: path.resolve(`src/templates/portfolio.tsx`),
+        path: `/portfolio/${node.slug}`,
+        component: path.resolve('src/templates/portfolio.tsx'),
         context: {
           id: node.id,
         },
@@ -41,8 +41,32 @@ exports.createPages = ({ actions, graphql }) => {
     })
   });
 
+  const getTags = makeRequest(graphql, `
+    {
+      allDatoCmsTag {
+        edges {
+          node {
+            slug
+            id
+          }
+        }
+      }
+    }
+  `).then(result => {
+    result.data.allDatoCmsTag.edges.forEach(({ node }) => {
+      createPage({
+        path: `/tags/${node.slug}`,
+        component: path.resolve('src/templates/tag.tsx'),
+        context: {
+          id: node.id
+        }
+      })
+    })
+  });
+
   // Query for recipe nodes to use in creating pages.
   return Promise.all([
     getPortfolios,
+    getTags,
   ])
 };
