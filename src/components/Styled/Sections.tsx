@@ -33,7 +33,11 @@ export const ArticleContent = styled.article`
   width: 100%;
   padding: 0 1.5rem;
   margin: 0 auto;
+  ${media.md`
+    padding-bottom: 5rem;
+  `}
   ${media.lg`
     padding: 0;
+    padding-bottom: 10rem;
   `};
 `;
