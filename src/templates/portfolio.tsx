@@ -68,7 +68,7 @@ export const query = graphql`
         }
       }
       image {
-        fluid {
+        fluid(imgixParams: {auto: "compress"}) {
           ...GatsbyDatoCmsFluid
         }
       }

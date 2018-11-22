@@ -79,7 +79,7 @@ export class Portfolio extends PureComponent {
                         }
                     }
                     image {
-                        fluid {
+                        fluid(maxWidth: 600, imgixParams: {auto: "compress"}) {
                             ...GatsbyDatoCmsFluid
                         }
                     }
