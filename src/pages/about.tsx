@@ -92,7 +92,7 @@ export const pageQuery = graphql`
         }
       }
       image {
-        fluid {
+        fluid(imgixParams: {auto: "compress"}) {
           ...GatsbyDatoCmsFluid
         }
       }
@@ -103,7 +103,7 @@ export const pageQuery = graphql`
           }
         }
         image {
-          fluid {
+          fluid(imgixParams: {auto: "compress"}) {
             ...GatsbyDatoCmsFluid
           }
         }
