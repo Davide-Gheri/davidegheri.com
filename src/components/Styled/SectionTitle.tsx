@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { media } from '../../utils/styled';
 
 const Title = styled('h2')<{color: string}>`
   font-size: 1.875rem;
@@ -11,9 +12,16 @@ const VerticalTitle = styled('h4')<{color: string}>`
   position: absolute;
   letter-spacing: .05rem;
   transform: rotate(-90deg);
-  left: 0;
-  top: 3.5rem;
   color: ${props => props.color || '#2f365f'};
+  top: 3.5rem;
+  left: -1.2rem;
+  display: block;
+  min-width: 70px;
+  border-bottom: solid thin ${props => props.color || '#2f365f'};
+  line-height: 1;
+  ${media.md`
+    left: 0;
+  `}
 `;
 
 export interface SectionTitleProps {

@@ -1,4 +1,5 @@
 import { ImageFixed, ImageFluid, Remark, SeoMetaTags } from './common';
+import { TagNode } from './tag';
 
 export interface PortfolioNode {
   id?: string;
@@ -8,12 +9,13 @@ export interface PortfolioNode {
   seoMetaTags?: SeoMetaTags;
   content?: string;
   contentNode?: {
-    childMarkdownRemark?: Remark;
+    childMarkdownRemark: Remark;
   };
   image?: {
     fluid?: ImageFluid;
     fixed?: ImageFixed;
   };
+  tags?: TagNode[];
 }
 
 export interface PortfolioQuery {

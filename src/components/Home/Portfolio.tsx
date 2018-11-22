@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { StaticQuery, graphql } from 'gatsby';
-import { media } from '../../../utils/styled';
-import { Section, SectionTitle, SectionPadding } from '../../Styled';
-import Item from './Item';
-import { PortfolioQuery } from '../../../interfaces';
+import { media } from '../../utils/styled';
+import { Section, SectionTitle, SectionPadding } from '../Styled';
+import Card from '../Portfolio/Card';
+import { PortfolioQuery } from '../../interfaces';
 
 const GridWrapper = styled.div`
   padding-bottom: 4rem;
@@ -79,9 +79,13 @@ export class Portfolio extends PureComponent {
                         }
                     }
                     image {
-                        fluid {
+                        fluid(maxWidth: 600, imgixParams: {auto: "compress"}) {
                             ...GatsbyDatoCmsFluid
                         }
+                    }
+                    tags {
+                      title
+                      slug
                     }
                   }
                 }
@@ -91,7 +95,7 @@ export class Portfolio extends PureComponent {
             return (
               <Grid ref={(ref: any) => this.gridRef = ref}>
                 {data.allDatoCmsPortfolio.edges.map((doc, k: number) => (
-                  <Item key={k} portfolio={doc.node}/>
+                  <Card key={k} portfolio={doc.node}/>
                 ))}
               </Grid>
             );
