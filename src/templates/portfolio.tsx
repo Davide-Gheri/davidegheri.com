@@ -97,6 +97,7 @@ export const query = graphql`
     }
     datoCmsPortfolio(id: { eq: $id }) {
       title
+      slug
       updatedAt(formatString: "LL")
       contentNode {
         childMarkdownRemark {
