@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import { PortfolioNode } from '../../interfaces';
+import { portfolioUrl } from '../../utils';
 
 const CardWrapper = styled.article`
   width: auto;
@@ -65,7 +66,7 @@ const CardExcerpt = styled.p`
 const Card = ({portfolio}: {portfolio: PortfolioNode}) => {
   return (
     <CardWrapper>
-      <CardBlockLink to={`/${portfolio.slug}`} className="content">
+      <CardBlockLink to={portfolioUrl(portfolio)} className="content">
         {portfolio.image && <Img fluid={portfolio.image.fluid} />}
         <CardContent>
           <CardHeader>

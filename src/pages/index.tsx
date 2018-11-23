@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import { About, FullScreenContent, Portfolio, Contacts } from '../components/Home';
 import Helmet from 'react-helmet';
 import { SeoQuery } from '../interfaces/seo';
+import { author, publisher } from '../utils';
 
 const IndexPage = ({ data }: {data: SeoQuery}) => {
   return (
@@ -17,28 +18,11 @@ const IndexPage = ({ data }: {data: SeoQuery}) => {
                 "@context": "http://schema.org",
                 "@type": "WebPage",
                 "name": "${data.datoCmsSite.globalSeo.siteName}",
-                "mainEntity": {
-                  "@type": "LocalBusiness",
-                  "@id": "#org",
-                  "name": "${data.datoCmsSite.globalSeo.siteName}",
-                  "image": "https://www.datocms-assets.com/8298/1542709217-sample-5.jpg",
-                  "address": {
-                    "@type": "PostalAddress",
-                      "addressCountry": "Country",
-                      "addressRegion": "Region",
-                      "postalCode": "1010101",
-                      "streetAddress": "Address",
-                      "email": "mail@example.com",
-                      "telephone": "00123457869"
-                  },
-                  "founder": {
-                    "@type": "Person",
-                    "@id": "#me",
-                    "name": "${data.datoCmsSite.name}"
-                  }
+                "mainEntity": ${publisher(data.datoCmsSite.globalSeo.siteName as string)},
+                  "founder": ${author(data.datoCmsSite.name as string)}
                 },
-                "publisher": {"@id": "#org"},
-                "author": {"@id": "#me"}
+                "publisher": ${publisher(data.datoCmsSite.globalSeo.siteName as string)},
+                "author": ${author(data.datoCmsSite.name as string)}
               }
             `}
         </script>

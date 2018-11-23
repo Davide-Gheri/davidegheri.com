@@ -4,3 +4,7 @@ export interface TagNode {
   title?: string;
   slug?: string;
 }
+
+export interface TagQuery {
+  datoCmsTag: TagNode;
+}
