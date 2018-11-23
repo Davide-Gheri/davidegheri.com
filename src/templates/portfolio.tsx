@@ -17,12 +17,14 @@ import {
   CategoryLink,
   PortfolioImage,
 } from '../components/Styled';
-import { SinglePortfolioQuery } from '../interfaces';
+import { SinglePortfolioQuery, SiteQuery } from '../interfaces';
 import { SeoQuery } from '../interfaces/seo';
 import { ImageFluid } from '../interfaces/common';
-import { author, publisher, tagUrl } from '../utils';
+import { author, portfolioUrl, publisher, tagUrl } from '../utils';
 
-const PortfolioTemplate = ({ data, location }: {data: SinglePortfolioQuery & SeoQuery, location: any}) => {
+type PortfolioTemplateQuery = SinglePortfolioQuery & SeoQuery & SiteQuery;
+
+const PortfolioTemplate = ({ data }: {data: PortfolioTemplateQuery, location: any}) => {
   return (
     <Layout headerTransparent={false}>
       {data.datoCmsPortfolio.seoMetaTags && (
@@ -39,7 +41,7 @@ const PortfolioTemplate = ({ data, location }: {data: SinglePortfolioQuery & Seo
                 "image": "${data.datoCmsPortfolio.image ? (data.datoCmsPortfolio.image.fluid as ImageFluid).src : 'https://www.datocms-assets.com/8298/1542709217-sample-5.jpg'}",
                 "mainEntityOfpage": {
                   "@type": "WebPage",
-                  "url": "${location.href}"
+                  "url": "${data.site.siteMetadata.baseUrl}/${portfolioUrl(data.datoCmsPortfolio)}"
                 }
               }
             `}
@@ -82,6 +84,11 @@ export default PortfolioTemplate;
 
 export const query = graphql`
   query ArticleTemplate($id: String!) {
+    site {
+      siteMetadata {
+        baseUrl
+      }
+    }
     datoCmsSite {
       name
       globalSeo {

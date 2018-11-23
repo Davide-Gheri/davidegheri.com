@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby',
+    baseUrl: process.env.BASE_URL
   },
   plugins: [
     'gatsby-plugin-styled-components',
