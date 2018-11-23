@@ -21,7 +21,7 @@ const TagTemplate = ({ data }: {data: TagTemplateQuery, location: any}) => {
                 "@context": "http://schema.org",
                 "@type": "ItemList",
                 "name": "${data.datoCmsTag.title}",
-                "url": "${data.site.siteMetadata.baseUrl}/${tagUrl(data.datoCmsTag)}",
+                "url": "${data.site.siteMetadata.baseUrl}${tagUrl(data.datoCmsTag)}",
                 "description": "${data.datoCmsTag.description}",
                 "itemListOrder": "unordered",
                 "numberOfItems": "${data.allDatoCmsPortfolio.edges.length}",
@@ -29,7 +29,7 @@ const TagTemplate = ({ data }: {data: TagTemplateQuery, location: any}) => {
                   `{
                     "@type": "ListItem",
                     "position": "${k + 1}",
-                    "url": "${data.site.siteMetadata.baseUrl}/${portfolioUrl(node)}",
+                    "url": "${data.site.siteMetadata.baseUrl}${portfolioUrl(node)}",
                     "name": "${node.title}",
                     "image": "${node.image ? (node.image.fluid as ImageFluid).src : 'https://www.datocms-assets.com/8298/1542709217-sample-5.jpg'}"
                   }`
