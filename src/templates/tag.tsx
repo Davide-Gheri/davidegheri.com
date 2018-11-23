@@ -21,7 +21,7 @@ const TagTemplate = ({ data }: {data: TagTemplateQuery, location: any}) => {
                 "@context": "http://schema.org",
                 "@type": "ItemList",
                 "name": "${data.datoCmsTag.title}",
-                "url": "${data.siteMetadata.baseUrl}/${tagUrl(data.datoCmsTag)}",
+                "url": "${data.site.siteMetadata.baseUrl}/${tagUrl(data.datoCmsTag)}",
                 "description": "${data.datoCmsTag.description}",
                 "itemListOrder": "unordered",
                 "numberOfItems": "${data.allDatoCmsPortfolio.edges.length}",
