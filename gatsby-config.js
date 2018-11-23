@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    baseUrl: process.env.BASE_URL || 'http://localhost'
+    baseUrl: process.env.DEPLOY_URL || process.env.BASE_URL || 'http://localhost'
   },
   plugins: [
     'gatsby-plugin-styled-components',
