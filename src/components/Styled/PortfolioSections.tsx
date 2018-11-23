@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { media } from '../../utils/styled';
 
-export const PortfolioBackground = styled.div`
+export const PortfolioBackground = styled('div')<{background?: string}>`
   width: 100%;
-  background: #fff;
+  background: ${props => props.background || '#fff'};
   padding: 0 4vw;
 `;
 
