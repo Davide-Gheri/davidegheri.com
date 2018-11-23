@@ -20,6 +20,7 @@ import {
 import { SinglePortfolioQuery } from '../interfaces';
 import { SeoQuery } from '../interfaces/seo';
 import { ImageFluid } from '../interfaces/common';
+import { author, publisher, tagUrl } from '../utils';
 
 const PortfolioTemplate = ({ data, location }: {data: SinglePortfolioQuery & SeoQuery, location: any}) => {
   return (
@@ -32,8 +33,8 @@ const PortfolioTemplate = ({ data, location }: {data: SinglePortfolioQuery & Seo
                 "@context": "http://schema.org",
                 "@type": "Article",
                 "headline": "${data.datoCmsPortfolio.title}",
-                "author": {"@id": "/#me"},
-                "publisher": {"@id": "/#org"},
+                "author": ${author(data.datoCmsSite.name as string)},
+                "publisher": ${publisher(data.datoCmsSite.globalSeo.siteName as string)},
                 "datePublished": "${data.datoCmsPortfolio.updatedAt}",
                 "image": "${data.datoCmsPortfolio.image ? (data.datoCmsPortfolio.image.fluid as ImageFluid).src : 'https://www.datocms-assets.com/8298/1542709217-sample-5.jpg'}",
                 "mainEntityOfpage": {
@@ -53,7 +54,7 @@ const PortfolioTemplate = ({ data, location }: {data: SinglePortfolioQuery & Seo
               {data.datoCmsPortfolio.tags && (
                 <>
                   <DateDivider>/</DateDivider>
-                  <CategoryLink to={`/${data.datoCmsPortfolio.tags[0].slug}`}>{data.datoCmsPortfolio.tags[0].title}</CategoryLink>
+                  <CategoryLink to={tagUrl(data.datoCmsPortfolio.tags[0])}>{data.datoCmsPortfolio.tags[0].title}</CategoryLink>
                 </>
               )}
             </PortfolioMeta>
@@ -82,6 +83,7 @@ export default PortfolioTemplate;
 export const query = graphql`
   query ArticleTemplate($id: String!) {
     datoCmsSite {
+      name
       globalSeo {
         siteName
       }

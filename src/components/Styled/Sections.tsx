@@ -21,9 +21,9 @@ export const FeaturedImage = styled(Img)`
   z-index: 1;
 `;
 
-export const MainSection = styled.section`
+export const MainSection = styled('section')<{background?: string}>`
   min-height: 500px;
-  background: #fff;
+  background: ${props => props.background || '#fff'};
   line-height: 2;
   font-size: 1.125rem;
   padding: 1.5rem 0;

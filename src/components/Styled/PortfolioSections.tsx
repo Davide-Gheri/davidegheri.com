@@ -43,9 +43,9 @@ export const PortfolioMetaDate = styled.time`
   color: #3eb0ef;
 `;
 
-export const PortfolioTitle = styled.h1`
+export const PortfolioTitle = styled('h1')<{color?: string}>`
   margin: 0;
-  color: rgb(11, 12, 14);
+  color: ${props => props.color || 'rgb(11, 12, 14)'};
   font-size: 2.5rem;
   line-height: 1.15;
   ${media.sm`
