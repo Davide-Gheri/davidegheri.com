@@ -10,7 +10,6 @@ import { ImageFluid } from '../interfaces/common';
 import { SeoQuery } from '../interfaces/seo';
 
 const TagTemplate = ({ data, location}: {data: PortfolioQuery & TagQuery & SeoQuery, location: any}) => {
-  console.log(data);
   return (
     <Layout headerTransparent={false}>
       <HelmetDatoCms seo={data.datoCmsTag.seoMetaTags}>
