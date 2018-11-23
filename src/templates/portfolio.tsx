@@ -41,7 +41,7 @@ const PortfolioTemplate = ({ data }: {data: PortfolioTemplateQuery, location: an
                 "image": "${data.datoCmsPortfolio.image ? (data.datoCmsPortfolio.image.fluid as ImageFluid).src : 'https://www.datocms-assets.com/8298/1542709217-sample-5.jpg'}",
                 "mainEntityOfpage": {
                   "@type": "WebPage",
-                  "url": "${data.site.siteMetadata.baseUrl}/${portfolioUrl(data.datoCmsPortfolio)}"
+                  "url": "${data.site.siteMetadata.baseUrl}${portfolioUrl(data.datoCmsPortfolio)}"
                 }
               }
             `}
@@ -97,6 +97,7 @@ export const query = graphql`
     }
     datoCmsPortfolio(id: { eq: $id }) {
       title
+      slug
       updatedAt(formatString: "LL")
       contentNode {
         childMarkdownRemark {
