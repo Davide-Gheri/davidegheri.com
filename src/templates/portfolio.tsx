@@ -83,6 +83,7 @@ export default PortfolioTemplate;
 export const query = graphql`
   query ArticleTemplate($id: String!) {
     datoCmsSite {
+      name
       globalSeo {
         siteName
       }
