@@ -44,4 +44,3 @@ export function shuffleArray(array: any[]) {
   }
   return ar;
 }
-
