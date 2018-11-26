@@ -6,8 +6,9 @@ import { About, FullScreenContent, Portfolio, Contacts } from '../components/Hom
 import Helmet from 'react-helmet';
 import { SeoQuery } from '../interfaces/seo';
 import { author, publisher } from '../utils';
+import { Pick2 } from '../interfaces';
 
-const IndexPage = ({ data }: {data: SeoQuery}) => {
+const IndexPage = ({ data }: {data: Pick2<SeoQuery, 'datoCmsSite', 'name' | 'globalSeo'>}) => {
   return (
     <Layout>
       <Helmet>
