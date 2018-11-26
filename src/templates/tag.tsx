@@ -4,12 +4,12 @@ import { PortfolioGrid } from '../components/Portfolio/PortfolioGrid';
 import { HelmetDatoCms } from 'gatsby-source-datocms';
 import { PortfolioHeader, PortfolioTitle, MainSection } from '../components/Styled';
 import { graphql } from 'gatsby';
-import { PortfolioQuery, SiteQuery, TagQuery } from '../interfaces';
+import { Pick2, PortfolioQuery, SiteQuery, TagQuery } from '../interfaces';
 import { portfolioUrl, tagUrl } from '../utils';
 import { ImageFluid } from '../interfaces/common';
 import { SeoQuery } from '../interfaces/seo';
 
-type TagTemplateQuery = PortfolioQuery & TagQuery & SeoQuery & SiteQuery;
+type TagTemplateQuery = PortfolioQuery & TagQuery & Pick2<SeoQuery, 'datoCmsSite', 'name' | 'globalSeo'> & SiteQuery;
 
 const TagTemplate = ({ data }: {data: TagTemplateQuery, location: any}) => {
   return (

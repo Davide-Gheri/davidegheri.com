@@ -14,7 +14,7 @@ interface LayoutProps {
 }
 
 interface PureLayoutProps extends LayoutProps {
-  data: SeoQuery;
+  data: Required<SeoQuery>;
 }
 
 export const PureLayout = ({children, header = true, footer = true, headerTransparent = true, data}: PureLayoutProps) => (

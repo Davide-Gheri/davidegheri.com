@@ -21,9 +21,12 @@ export interface AboutNode {
     fluid?: ImageFluid;
     fixed?: ImageFixed;
   };
-  homepage?: string;
+  homepageAbout?: string;
   page?: AboutRow[];
   seoMetaTags?: SeoMetaTags;
+  homepageSkills?: {
+    skill: string;
+  }[];
 }
 
 export interface AboutQuery {
