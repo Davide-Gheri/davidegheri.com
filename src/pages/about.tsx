@@ -4,7 +4,7 @@ import Img from 'gatsby-image';
 import { HelmetDatoCms } from 'gatsby-source-datocms';
 import Layout from '../components/Layout';
 import { Content, FeaturedImage, FeaturedSection, MainSection, ArticleContent } from '../components/Styled';
-import { AboutQuery } from '../interfaces';
+import { AboutQuery, Pick2 } from '../interfaces';
 import { ImageFixed, ImageFluid } from '../interfaces/common';
 import { isString } from 'lodash';
 
@@ -45,7 +45,7 @@ const RowContent = ({name, content}: RowContentProps) => {
   return <p/>;
 };
 
-const AboutPage = ({data}: {data: AboutQuery}) => {
+const AboutPage = ({data}: {data: Pick2<AboutQuery, 'datoCmsAbout', 'seoMetaTags' | 'image' | 'page'>}) => {
   return(
     <Layout>
       {data.datoCmsAbout.seoMetaTags && (
@@ -63,7 +63,7 @@ const AboutPage = ({data}: {data: AboutQuery}) => {
           <ArticleContent>
             {data.datoCmsAbout.page.map((row, k) => (
               <Content key={k}>
-                {Object.keys(row).map(name => (
+                {Object.keys(row).filter(name => name !== '__typename').map(name => (
                   <RowContent key={k + name} name={name} content={row[name]}/>
                 ))}
               </Content>
@@ -92,24 +92,26 @@ export const pageQuery = graphql`
         }
       }
       image {
-        fluid {
+        fluid(imgixParams: {auto: "compress"}) {
           ...GatsbyDatoCmsFluid
         }
       }
       page {
-        textNode {
-          childMarkdownRemark {
-            html
+        ... on DatoCmsRow1 {
+          textNode {
+            childMarkdownRemark {
+              html
+            }
           }
-        }
-        image {
-          fluid {
-            ...GatsbyDatoCmsFluid
+          image {
+            fluid(imgixParams: {auto: "compress"}) {
+              ...GatsbyDatoCmsFluid
+            }
           }
-        }
-        text2Node {
-          childMarkdownRemark {
-            html
+          text2Node {
+            childMarkdownRemark {
+              html
+            }
           }
         }
       }

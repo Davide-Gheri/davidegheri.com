@@ -9,7 +9,7 @@ beforeEach(() => {
 });
 
 describe('Layout should render correctly', () => {
-  it('should true', () => {
+  it('should render with passed data', () => {
     const data: SeoQuery = {
       datoCmsSite: {
         name: 'Test',
