@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { media } from '../../utils';
 import { Section, SectionTitle, SectionPadding } from '../Styled';
 import { graphql, Link, StaticQuery } from 'gatsby';
+import { AboutQuery, Pick2 } from '../../interfaces';
 
 const Wrapper = styled(SectionPadding)`
   ${media.md`
@@ -32,7 +33,7 @@ export const About = () => (
                 homepageAbout
             }
         }
-      `} render={(data: any) => (
+      `} render={(data: Pick2<AboutQuery, 'datoCmsAbout', 'homepageAbout'>) => (
         <AboutQuoteContent>
           {data.datoCmsAbout.homepageAbout}
           <span><br/><Link to="/about">More...</Link></span>

@@ -1,9 +1,6 @@
-import React, { PureComponent } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-import { media } from '../../utils/styled';
 import { Section, SectionTitle, SectionPadding } from '../Styled';
-import Card from '../Portfolio/Card';
 import { PortfolioQuery } from '../../interfaces';
 import { PortfolioGrid } from '../Portfolio/PortfolioGrid';
 
