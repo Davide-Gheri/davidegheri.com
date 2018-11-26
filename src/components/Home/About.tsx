@@ -29,12 +29,12 @@ export const About = () => (
       <StaticQuery query={graphql`
         query AboutHomeQuery {
             datoCmsAbout {
-                homepage
+                homepageAbout
             }
         }
       `} render={(data: any) => (
         <AboutQuoteContent>
-          {data.datoCmsAbout.homepage}
+          {data.datoCmsAbout.homepageAbout}
           <span><br/><Link to="/about">More...</Link></span>
         </AboutQuoteContent>
       )}/>

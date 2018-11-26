@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Stars from '../Canvas/Stars';
 import Skills from './Skills';
 import { graphql, StaticQuery } from 'gatsby';
+import { AboutNode, AboutQuery, Pick2 } from '../../interfaces';
 
 const Wrapper = styled.div`
   position: relative;
@@ -27,11 +28,17 @@ export const FullScreenContent = ({siteTitle}: any) => (
       <h1>{siteTitle}</h1>
       <StaticQuery query={graphql`
         query SkillsQuery {
-
+          datoCmsAbout {
+            homepageSkills {
+              skill
+            }
+          }
         }
-      `} render={(data) => (
-        <Skills skills={['React', 'Javascript']}/>
-      )}/>
+      `} render={(data: Pick2<AboutQuery, 'datoCmsAbout', 'homepageSkills'>) => {
+        return (
+          <Skills skills={data.datoCmsAbout.homepageSkills.map(s => s.skill)}/>
+        );
+      }}/>
     </Title>
     <Stars/>
   </Wrapper>

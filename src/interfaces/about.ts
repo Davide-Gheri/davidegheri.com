@@ -24,6 +24,9 @@ export interface AboutNode {
   homepage?: string;
   page?: AboutRow[];
   seoMetaTags?: SeoMetaTags;
+  homepageSkills?: {
+    skill: string;
+  }[];
 }
 
 export interface AboutQuery {
