@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Section } from '../Styled';
 import { media } from '../../utils/styled';
-import { graphql, StaticQuery } from 'gatsby';
-import { ContactQuery } from '../../interfaces';
+import { Form, FormGroup, FormInput, FormLabel, FormTextarea, FormButton } from '../Styled/Form';
 
 const ContactsPadding = styled.div`
   position: relative;
@@ -39,6 +38,10 @@ const WhiteLink = styled.a`
 `;
 
 export const Contacts = () => {
+  const onSubmit = () => {
+    console.log('ciao');
+  };
+
   return (
     <Section background="#2f365f">
       <ContactsPadding>
@@ -47,33 +50,18 @@ export const Contacts = () => {
           <ContactsColumn/>
           <ContactsColumn>
             <ContactsColumnPadding>
-              <StaticQuery query={graphql`
-                query {
-                    datoCmsContact {
-                        address
-                        telephone
-                        email
-                    }
-                }
-              `} render={(data: ContactQuery) => {
-                return (
-                  <>
-                    {data.datoCmsContact.address && (
-                      <p dangerouslySetInnerHTML={{__html: data.datoCmsContact.address.replace(/\n{2}/g, '</p><p>')}}/>
-                    )}
-                    {data.datoCmsContact.telephone && (
-                      <p>
-                        <WhiteLink href={`tel:${data.datoCmsContact.telephone}`}>{data.datoCmsContact.telephone}</WhiteLink>
-                      </p>
-                    )}
-                    {data.datoCmsContact.email && (
-                      <p>
-                        <WhiteLink href={`mailto:${data.datoCmsContact.email}`}>{data.datoCmsContact.email}</WhiteLink>
-                      </p>
-                    )}
-                  </>
-                );
-              }}/>
+              <Form onSubmit={onSubmit} name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
+                <FormGroup>
+                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <FormInput type="email" name="email" id="email" required={true} placeholder="foo@bar.baz"/>
+                </FormGroup>
+                <FormGroup>
+                  <FormLabel htmlFor="message">Message</FormLabel>
+                  <FormTextarea name="message" id="message" placeholder="Write me!"/>
+                </FormGroup>
+                <input type="hidden" name="bot-field" />
+                <FormButton>Send!</FormButton>
+              </Form>
             </ContactsColumnPadding>
           </ContactsColumn>
         </ContactsContent>
