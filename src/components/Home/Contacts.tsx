@@ -5,8 +5,8 @@ import { Section } from '../Styled';
 import { media } from '../../utils/styled';
 import { Form, FormGroup, FormInput, FormLabel, FormTextarea, FormButton } from '../Styled/Form';
 import { encode } from '../../utils';
-
-const RECAPTCHA_KEY = process.env.SITE_RECAPTCHA_KEY as string;
+import { graphql, StaticQuery } from 'gatsby';
+import { SiteQuery } from '../../interfaces';
 
 const ContactsPadding = styled.div`
   position: relative;
@@ -37,26 +37,26 @@ const ContactsColumnPadding = styled.div`
   line-height: 1.5;
 `;
 
-const WhiteLink = styled.a`
-  color: #ffffff;
+const RecaptchaWrapper = styled.div`
+  margin-bottom: 1rem;
 `;
 
 interface ContactsState {
   fields: {
     email: string;
     message: string;
-    'g-recaptcha-response': any;
-    [key: string]: any;
+    'g-recaptcha-response': string;
+    [key: string]: string;
   };
   loading: boolean;
 }
 
-export class Contacts extends PureComponent<{}, ContactsState> {
+export class ContactsPure extends PureComponent<{data: SiteQuery}, ContactsState> {
   state: ContactsState = {
     fields: {
       email: '',
       message: '',
-      'g-recaptcha-response': null,
+      'g-recaptcha-response': '',
     },
     loading: false,
   };
@@ -68,8 +68,7 @@ export class Contacts extends PureComponent<{}, ContactsState> {
     this.setState({fields});
   };
 
-  handleRecaptcha = (value: any) => {
-    console.log(value);
+  handleRecaptcha = (value: string) => {
     const fields = Object.assign({}, this.state.fields);
     fields['g-recaptcha-response'] = value;
     this.setState({fields});
@@ -86,8 +85,8 @@ export class Contacts extends PureComponent<{}, ContactsState> {
   };
 
   render() {
-    console.log(process.env)
     const { email, message } = this.state.fields;
+    const { data } = this.props;
     return (
       <Section background="#2f365f">
         <ContactsPadding>
@@ -118,11 +117,15 @@ export class Contacts extends PureComponent<{}, ContactsState> {
                       name="message" id="message" placeholder="Write me!"/>
                   </FormGroup>
                   <input type="hidden" name="bot-field"/>
-                  <Recaptcha
-                    ref="recaptcha"
-                    sitekey={RECAPTCHA_KEY}
-                    onChange={this.handleRecaptcha}
-                  />
+                  {data.site.siteMetadata.recaptcha && (
+                    <RecaptchaWrapper>
+                      <Recaptcha
+                        ref="recaptcha"
+                        sitekey={data.site.siteMetadata.recaptcha.key as string}
+                        onChange={this.handleRecaptcha}
+                      />
+                    </RecaptchaWrapper>
+                  )}
                   <FormButton>Send!</FormButton>
                 </Form>
               </ContactsColumnPadding>
@@ -133,3 +136,19 @@ export class Contacts extends PureComponent<{}, ContactsState> {
     );
   }
 }
+
+export const Contacts = () => (
+  <StaticQuery query={graphql`
+    query {
+      site {
+        siteMetadata {
+          recaptcha {
+            key
+          }
+        }
+      }
+    }
+  `} render={(data: SiteQuery) => (
+      <ContactsPure data={data}/>
+  )}/>
+);
