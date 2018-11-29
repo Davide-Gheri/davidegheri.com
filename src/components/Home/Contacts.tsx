@@ -78,6 +78,8 @@ interface ContactsState {
 }
 
 export class ContactsPure extends PureComponent<ContactsProps, ContactsState> {
+  timeout: any;
+
   state: ContactsState = {
     fields: {
       email: '',
@@ -93,8 +95,13 @@ export class ContactsPure extends PureComponent<ContactsProps, ContactsState> {
     },
   };
 
+  afterModalOpen = () => {
+    this.timeout = setTimeout(() => this.closeModal(), 3000);
+  };
+
   closeModal = () => {
     this.setState({modal: {open: false, message: '', level: null}});
+    clearTimeout(this.timeout);
   };
 
   onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -186,6 +193,7 @@ export class ContactsPure extends PureComponent<ContactsProps, ContactsState> {
         <Modal
           ariaHideApp={false}
           style={modalStyles}
+          onAfterOpen={this.afterModalOpen}
           onRequestClose={this.closeModal}
           isOpen={modal.open}>
           <Checkmark/>
