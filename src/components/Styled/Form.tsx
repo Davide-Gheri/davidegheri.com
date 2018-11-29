@@ -69,7 +69,7 @@ export const FormButton = styled.button`
   border-color: #4dc0b5;
   cursor: pointer;
   transition: all .1s;
-  :hover {
+  :hover:not([disabled]) {
     background: #4dc0b5;
   }
 `;

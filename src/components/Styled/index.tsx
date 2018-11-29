@@ -7,6 +7,7 @@ export * from './SectionPadding';
 export * from './SectionTitle';
 export * from './Section';
 export * from './PortfolioSections';
+export * from './Checkmark';
 
 export const DateDivider = styled.span`
   display: inline-block;

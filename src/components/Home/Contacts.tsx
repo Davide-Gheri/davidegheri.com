@@ -1,12 +1,13 @@
 import React, { ChangeEvent, PureComponent } from 'react';
 import styled from 'styled-components';
 import Recaptcha from 'react-google-recaptcha';
-import { Section } from '../Styled';
+import Modal, { Styles } from 'react-modal';
+import { Section, CheckmarkSuccess, CheckmarkError } from '../Styled';
 import { media } from '../../utils/styled';
 import { Form, FormGroup, FormInput, FormLabel, FormTextarea, FormButton } from '../Styled/Form';
 import { encode } from '../../utils';
 import { graphql, StaticQuery } from 'gatsby';
-import { SiteQuery } from '../../interfaces';
+import { ContactQuery, Pick2, Pick3, SiteQuery } from '../../interfaces';
 
 const ContactsPadding = styled.div`
   position: relative;
@@ -41,6 +42,25 @@ const RecaptchaWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
+const modalStyles: Styles = {
+  overlay: {
+    zIndex: 99999,
+  },
+  content: {
+    bottom: 'auto',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    transform: 'translate(-50%, -50%)',
+    minWidth: '300px',
+    background: '#eff8ff',
+  },
+};
+
+type ContactsProps = Pick3<SiteQuery, 'site', 'siteMetadata', 'recaptcha'> & Pick2<ContactQuery, 'datoCmsContact', 'successMessage' | 'errorMessage'>;
+
+type ModalLevel = 'success' | 'error' | null;
+
 interface ContactsState {
   fields: {
     email: string;
@@ -49,9 +69,15 @@ interface ContactsState {
     [key: string]: string;
   };
   loading: boolean;
+  valid: boolean;
+  modal: {
+    open: boolean;
+    message: string;
+    level: ModalLevel;
+  };
 }
 
-export class ContactsPure extends PureComponent<{data: SiteQuery}, ContactsState> {
+export class ContactsPure extends PureComponent<ContactsProps, ContactsState> {
   state: ContactsState = {
     fields: {
       email: '',
@@ -59,6 +85,16 @@ export class ContactsPure extends PureComponent<{data: SiteQuery}, ContactsState
       'g-recaptcha-response': '',
     },
     loading: false,
+    valid: false,
+    modal: {
+      open: false,
+      message: '',
+      level: null,
+    },
+  };
+
+  closeModal = () => {
+    this.setState({modal: {open: false, message: '', level: null}});
   };
 
   onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -68,25 +104,40 @@ export class ContactsPure extends PureComponent<{data: SiteQuery}, ContactsState
     this.setState({fields});
   };
 
-  handleRecaptcha = (value: string) => {
+  handleRecaptcha = (value: string | null) => {
     const fields = Object.assign({}, this.state.fields);
-    fields['g-recaptcha-response'] = value;
-    this.setState({fields});
+    fields['g-recaptcha-response'] = value || '';
+    this.setState({fields, valid: Boolean(value)});
   };
 
   onSubmit = () => {
-    console.log('ciao');
-    fetch('/?no-cache=1', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({ 'form-name': 'contact', ...this.state.fields }),
-    }).then(res => alert('Success!1!'))
-      .catch(err => alert(err));
+    if (this.state.fields['g-recaptcha-response']) {
+      const { datoCmsContact } = this.props;
+      fetch('/?no-cache=1', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({ 'form-name': 'contact', ...this.state.fields }),
+      }).then(res => {
+        this.setState({modal: {
+          open: true,
+          message: datoCmsContact.successMessage,
+          level: 'success',
+        }});
+      })
+      .catch(err => {
+        this.setState({modal: {
+          open: true,
+          message: datoCmsContact.errorMessage,
+          level: 'error',
+        }});
+      });
+    }
   };
 
   render() {
-    const { email, message } = this.state.fields;
-    const { data } = this.props;
+    const { loading, valid, fields: {email, message}, modal } = this.state;
+    const Checkmark = modal.level !== 'success' ? CheckmarkError : CheckmarkSuccess;
+    const { site, datoCmsContact } = this.props;
     return (
       <Section background="#2f365f">
         <ContactsPadding>
@@ -117,21 +168,29 @@ export class ContactsPure extends PureComponent<{data: SiteQuery}, ContactsState
                       name="message" id="message" placeholder="Write me!"/>
                   </FormGroup>
                   <input type="hidden" name="bot-field"/>
-                  {data.site.siteMetadata.recaptcha && (
+                  {site.siteMetadata.recaptcha && (
                     <RecaptchaWrapper>
                       <Recaptcha
                         ref="recaptcha"
-                        sitekey={data.site.siteMetadata.recaptcha.key as string}
+                        sitekey={site.siteMetadata.recaptcha.key as string}
                         onChange={this.handleRecaptcha}
                       />
                     </RecaptchaWrapper>
                   )}
-                  <FormButton>Send!</FormButton>
+                  <FormButton disabled={!valid || loading}>{loading ? 'Sending..' : 'Send!'}</FormButton>
                 </Form>
               </ContactsColumnPadding>
             </ContactsColumn>
           </ContactsContent>
         </ContactsPadding>
+        <Modal
+          ariaHideApp={false}
+          style={modalStyles}
+          onRequestClose={this.closeModal}
+          isOpen={modal.open}>
+          <Checkmark/>
+          <p>{modal.message}</p>
+        </Modal>
       </Section>
     );
   }
@@ -147,8 +206,12 @@ export const Contacts = () => (
           }
         }
       }
+      datoCmsContact {
+        successMessage
+        errorMessage
+      }
     }
-  `} render={(data: SiteQuery) => (
-      <ContactsPure data={data}/>
+  `} render={(data: ContactsProps) => (
+      <ContactsPure {...data}/>
   )}/>
 );
