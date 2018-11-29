@@ -143,14 +143,15 @@ export class ContactsPure extends PureComponent<ContactsProps, ContactsState> {
 
   render() {
     const { loading, valid, fields: {email, message}, modal } = this.state;
+    const { site } = this.props;
+
     const Checkmark = modal.level !== 'success' ? CheckmarkError : CheckmarkSuccess;
-    const { site, datoCmsContact } = this.props;
     return (
       <Section background="#2f365f">
         <ContactsPadding>
           <ContactsTitle>Contacts</ContactsTitle>
           <ContactsContent>
-            <ContactsColumn/>
+            {/*<ContactsColumn/>*/}
             <ContactsColumn>
               <ContactsColumnPadding>
                 <Form onSubmit={this.onSubmit} name="contact" method="post"
