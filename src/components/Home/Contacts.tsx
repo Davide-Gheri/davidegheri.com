@@ -86,6 +86,7 @@ export class Contacts extends PureComponent<{}, ContactsState> {
   };
 
   render() {
+    console.log(process.env)
     const { email, message } = this.state.fields;
     return (
       <Section background="#2f365f">
