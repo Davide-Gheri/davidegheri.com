@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { ChangeEvent, PureComponent } from 'react';
 import styled from 'styled-components';
 import { Section } from '../Styled';
 import { media } from '../../utils/styled';
 import { Form, FormGroup, FormInput, FormLabel, FormTextarea, FormButton } from '../Styled/Form';
+import { encode } from '../../utils';
 
 const ContactsPadding = styled.div`
   position: relative;
@@ -37,35 +38,77 @@ const WhiteLink = styled.a`
   color: #ffffff;
 `;
 
-export const Contacts = () => {
-  const onSubmit = () => {
-    console.log('ciao');
+interface ContactsState {
+  fields: {
+    email: string;
+    message: string;
+    [key: string]: string;
+  };
+  loading: boolean;
+}
+
+export class Contacts extends PureComponent<{}, ContactsState> {
+  state: ContactsState = {
+    fields: {
+      email: '',
+      message: '',
+    },
+    loading: false,
   };
 
-  return (
-    <Section background="#2f365f">
-      <ContactsPadding>
-        <ContactsTitle>Contacts</ContactsTitle>
-        <ContactsContent>
-          <ContactsColumn/>
-          <ContactsColumn>
-            <ContactsColumnPadding>
-              <Form onSubmit={onSubmit} name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
-                <FormGroup>
-                  <FormLabel htmlFor="email">Email</FormLabel>
-                  <FormInput type="email" name="email" id="email" required={true} placeholder="foo@bar.baz"/>
-                </FormGroup>
-                <FormGroup>
-                  <FormLabel htmlFor="message">Message</FormLabel>
-                  <FormTextarea name="message" id="message" placeholder="Write me!"/>
-                </FormGroup>
-                <input type="hidden" name="bot-field" />
-                <FormButton>Send!</FormButton>
-              </Form>
-            </ContactsColumnPadding>
-          </ContactsColumn>
-        </ContactsContent>
-      </ContactsPadding>
-    </Section>
-  );
-};
+  onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const fields = Object.assign({}, this.state.fields);
+    fields[name] = value;
+    this.setState({fields});
+  };
+
+  onSubmit = () => {
+    console.log('ciao');
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({ 'form-name': 'contact', ...this.state.fields }),
+    }).then(res => alert('Success!1!'))
+      .catch(err => alert(err));
+  };
+
+  render() {
+    const { email, message } = this.state.fields;
+    return (
+      <Section background="#2f365f">
+        <ContactsPadding>
+          <ContactsTitle>Contacts</ContactsTitle>
+          <ContactsContent>
+            <ContactsColumn/>
+            <ContactsColumn>
+              <ContactsColumnPadding>
+                <Form onSubmit={this.onSubmit} name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
+                  <input type="hidden" name="form-name" value="contact"/>
+                  <div data-netlify-recaptcha/>
+                  <FormGroup>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormInput
+                      value={email}
+                      onChange={this.onChange}
+                      type="email" name="email" id="email"
+                      required={true} placeholder="foo@bar.baz"/>
+                  </FormGroup>
+                  <FormGroup>
+                    <FormLabel htmlFor="message">Message</FormLabel>
+                    <FormTextarea
+                      value={message}
+                      onChange={this.onChange}
+                      name="message" id="message" placeholder="Write me!"/>
+                  </FormGroup>
+                  <input type="hidden" name="bot-field"/>
+                  <FormButton>Send!</FormButton>
+                </Form>
+              </ContactsColumnPadding>
+            </ContactsColumn>
+          </ContactsContent>
+        </ContactsPadding>
+      </Section>
+    );
+  }
+}
