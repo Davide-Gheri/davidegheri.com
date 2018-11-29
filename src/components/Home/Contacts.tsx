@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { ChangeEvent, PureComponent } from 'react';
 import styled from 'styled-components';
-import { Section } from '../Styled';
+import Recaptcha from 'react-google-recaptcha';
+import Modal, { Styles } from 'react-modal';
+import { Section, CheckmarkSuccess, CheckmarkError } from '../Styled';
 import { media } from '../../utils/styled';
+import { Form, FormGroup, FormInput, FormLabel, FormTextarea, FormButton } from '../Styled/Form';
+import { encode } from '../../utils';
 import { graphql, StaticQuery } from 'gatsby';
-import { ContactQuery } from '../../interfaces';
+import { ContactQuery, Pick2, Pick3, SiteQuery } from '../../interfaces';
 
 const ContactsPadding = styled.div`
   position: relative;
@@ -34,50 +38,189 @@ const ContactsColumnPadding = styled.div`
   line-height: 1.5;
 `;
 
-const WhiteLink = styled.a`
-  color: #ffffff;
+const RecaptchaWrapper = styled.div`
+  margin-bottom: 1rem;
 `;
 
-export const Contacts = () => {
-  return (
-    <Section background="#2f365f">
-      <ContactsPadding>
-        <ContactsTitle>Contacts</ContactsTitle>
-        <ContactsContent>
-          <ContactsColumn/>
-          <ContactsColumn>
-            <ContactsColumnPadding>
-              <StaticQuery query={graphql`
-                query {
-                    datoCmsContact {
-                        address
-                        telephone
-                        email
-                    }
-                }
-              `} render={(data: ContactQuery) => {
-                return (
-                  <>
-                    {data.datoCmsContact.address && (
-                      <p dangerouslySetInnerHTML={{__html: data.datoCmsContact.address.replace(/\n{2}/g, '</p><p>')}}/>
-                    )}
-                    {data.datoCmsContact.telephone && (
-                      <p>
-                        <WhiteLink href={`tel:${data.datoCmsContact.telephone}`}>{data.datoCmsContact.telephone}</WhiteLink>
-                      </p>
-                    )}
-                    {data.datoCmsContact.email && (
-                      <p>
-                        <WhiteLink href={`mailto:${data.datoCmsContact.email}`}>{data.datoCmsContact.email}</WhiteLink>
-                      </p>
-                    )}
-                  </>
-                );
-              }}/>
-            </ContactsColumnPadding>
-          </ContactsColumn>
-        </ContactsContent>
-      </ContactsPadding>
-    </Section>
-  );
+const modalStyles: Styles = {
+  overlay: {
+    zIndex: 99999,
+  },
+  content: {
+    bottom: 'auto',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    transform: 'translate(-50%, -50%)',
+    minWidth: '300px',
+    background: '#eff8ff',
+  },
 };
+
+type ContactsProps = Pick3<SiteQuery, 'site', 'siteMetadata', 'recaptcha'> & Pick2<ContactQuery, 'datoCmsContact', 'successMessage' | 'errorMessage'>;
+
+type ModalLevel = 'success' | 'error' | null;
+
+interface ContactsState {
+  fields: {
+    email: string;
+    message: string;
+    'g-recaptcha-response': string;
+    [key: string]: string;
+  };
+  loading: boolean;
+  valid: boolean;
+  modal: {
+    open: boolean;
+    message: string;
+    level: ModalLevel;
+  };
+}
+
+export class ContactsPure extends PureComponent<ContactsProps, ContactsState> {
+  timeout: any;
+
+  state: ContactsState = {
+    fields: {
+      email: '',
+      message: '',
+      'g-recaptcha-response': '',
+    },
+    loading: false,
+    valid: false,
+    modal: {
+      open: false,
+      message: '',
+      level: null,
+    },
+  };
+
+  afterModalOpen = () => {
+    this.timeout = setTimeout(() => this.closeModal(), 3000);
+  };
+
+  closeModal = () => {
+    this.setState({modal: {open: false, message: '', level: null}});
+    clearTimeout(this.timeout);
+  };
+
+  onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const fields = Object.assign({}, this.state.fields);
+    fields[name] = value;
+    this.setState({fields});
+  };
+
+  handleRecaptcha = (value: string | null) => {
+    const fields = Object.assign({}, this.state.fields);
+    fields['g-recaptcha-response'] = value || '';
+    this.setState({fields, valid: Boolean(value)});
+  };
+
+  onSubmit = () => {
+    if (this.state.fields['g-recaptcha-response']) {
+      const { datoCmsContact } = this.props;
+      fetch('/?no-cache=1', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({ 'form-name': 'contact', ...this.state.fields }),
+      }).then(res => {
+        this.setState({modal: {
+          open: true,
+          message: datoCmsContact.successMessage,
+          level: 'success',
+        }});
+      })
+      .catch(err => {
+        this.setState({modal: {
+          open: true,
+          message: datoCmsContact.errorMessage,
+          level: 'error',
+        }});
+      });
+    }
+  };
+
+  render() {
+    const { loading, valid, fields: {email, message}, modal } = this.state;
+    const { site } = this.props;
+
+    const Checkmark = modal.level !== 'success' ? CheckmarkError : CheckmarkSuccess;
+    return (
+      <Section background="#2f365f">
+        <ContactsPadding>
+          <ContactsTitle>Contacts</ContactsTitle>
+          <ContactsContent>
+            {/*<ContactsColumn/>*/}
+            <ContactsColumn>
+              <ContactsColumnPadding>
+                <Form onSubmit={this.onSubmit} name="contact" method="post"
+                      data-netlify="true"
+                      data-netlify-honeypot="bot-field"
+                      data-netlify-recaptcha="true">
+                  <input type="hidden" name="form-name" value="contact"/>
+                  <div data-netlify-recaptcha/>
+                  <FormGroup>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormInput
+                      value={email}
+                      onChange={this.onChange}
+                      type="email" name="email" id="email"
+                      required={true} placeholder="foo@bar.baz"/>
+                  </FormGroup>
+                  <FormGroup>
+                    <FormLabel htmlFor="message">Message</FormLabel>
+                    <FormTextarea
+                      value={message}
+                      onChange={this.onChange}
+                      name="message" id="message" placeholder="Write me!"/>
+                  </FormGroup>
+                  <input type="hidden" name="bot-field"/>
+                  {site.siteMetadata.recaptcha && (
+                    <RecaptchaWrapper>
+                      <Recaptcha
+                        ref="recaptcha"
+                        sitekey={site.siteMetadata.recaptcha.key as string}
+                        onChange={this.handleRecaptcha}
+                      />
+                    </RecaptchaWrapper>
+                  )}
+                  <FormButton disabled={!valid || loading}>{loading ? 'Sending..' : 'Send!'}</FormButton>
+                </Form>
+              </ContactsColumnPadding>
+            </ContactsColumn>
+          </ContactsContent>
+        </ContactsPadding>
+        <Modal
+          ariaHideApp={false}
+          style={modalStyles}
+          onAfterOpen={this.afterModalOpen}
+          onRequestClose={this.closeModal}
+          isOpen={modal.open}>
+          <Checkmark/>
+          <p>{modal.message}</p>
+        </Modal>
+      </Section>
+    );
+  }
+}
+
+export const Contacts = () => (
+  <StaticQuery query={graphql`
+    query {
+      site {
+        siteMetadata {
+          recaptcha {
+            key
+          }
+        }
+      }
+      datoCmsContact {
+        successMessage
+        errorMessage
+      }
+    }
+  `} render={(data: ContactsProps) => (
+      <ContactsPure {...data}/>
+  )}/>
+);

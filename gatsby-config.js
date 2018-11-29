@@ -4,7 +4,11 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    baseUrl: process.env.DEPLOY_URL || process.env.BASE_URL || 'http://localhost'
+    baseUrl: process.env.DEPLOY_URL || process.env.BASE_URL || 'http://localhost',
+    recaptcha: {
+      key: process.env.SITE_RECAPTCHA_KEY || '',
+      secret: process.env.SITE_RECAPTCHA_SECRET || '',
+    }
   },
   plugins: [
     'gatsby-plugin-styled-components',

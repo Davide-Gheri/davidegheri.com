@@ -32,3 +32,20 @@ figure {
     margin: 0;
     height: 100%;
 }
+
+body.ReactModal__Body--open {
+    overflow: hidden;
+}
+
+.ReactModal__Content {
+    opacity: 0;
+}
+
+.ReactModal__Content--after-open {
+    opacity: 1;
+    transition: opacity 150ms;
+}
+
+.ReactModal__Content--before-close {
+    opacity: 0;
+}

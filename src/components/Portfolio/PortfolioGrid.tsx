@@ -39,9 +39,11 @@ export class PortfolioGrid extends PureComponent<{data: PortfolioQuery}> {
 
   resizeAllGridItems = () => {
     setTimeout(() => {
-      [].forEach.call(this.gridRef.current.children, (el: HTMLElement) => {
-        resizeGridItem(el, this.gridRef.current);
-      });
+      if (this.gridRef.current) {
+        [].forEach.call(this.gridRef.current.children, (el: HTMLElement) => {
+          resizeGridItem(el, this.gridRef.current);
+        });
+      }
     }, 10);
   };
 
