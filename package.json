@@ -22,6 +22,7 @@
     "normalize.css": "^8.0.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
+    "react-google-recaptcha": "^1.0.5",
     "react-helmet": "^5.2.0",
     "react-recaptcha": "^2.3.10",
     "react-typist": "^2.0.4",
