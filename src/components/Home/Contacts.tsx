@@ -1,9 +1,12 @@
 import React, { ChangeEvent, PureComponent } from 'react';
 import styled from 'styled-components';
+import Recaptcha from 'react-google-recaptcha';
 import { Section } from '../Styled';
 import { media } from '../../utils/styled';
 import { Form, FormGroup, FormInput, FormLabel, FormTextarea, FormButton } from '../Styled/Form';
 import { encode } from '../../utils';
+
+const RECAPTCHA_KEY = process.env.SITE_RECAPTCHA_KEY as string;
 
 const ContactsPadding = styled.div`
   position: relative;
@@ -42,7 +45,8 @@ interface ContactsState {
   fields: {
     email: string;
     message: string;
-    [key: string]: string;
+    'g-recaptcha-response': any;
+    [key: string]: any;
   };
   loading: boolean;
 }
@@ -52,6 +56,7 @@ export class Contacts extends PureComponent<{}, ContactsState> {
     fields: {
       email: '',
       message: '',
+      'g-recaptcha-response': null,
     },
     loading: false,
   };
@@ -60,6 +65,13 @@ export class Contacts extends PureComponent<{}, ContactsState> {
     const { name, value } = e.target;
     const fields = Object.assign({}, this.state.fields);
     fields[name] = value;
+    this.setState({fields});
+  };
+
+  handleRecaptcha = (value: any) => {
+    console.log(value);
+    const fields = Object.assign({}, this.state.fields);
+    fields['g-recaptcha-response'] = value;
     this.setState({fields});
   };
 
@@ -83,7 +95,10 @@ export class Contacts extends PureComponent<{}, ContactsState> {
             <ContactsColumn/>
             <ContactsColumn>
               <ContactsColumnPadding>
-                <Form onSubmit={this.onSubmit} name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
+                <Form onSubmit={this.onSubmit} name="contact" method="post"
+                      data-netlify="true"
+                      data-netlify-honeypot="bot-field"
+                      data-netlify-recaptcha="true">
                   <input type="hidden" name="form-name" value="contact"/>
                   <div data-netlify-recaptcha/>
                   <FormGroup>
@@ -102,6 +117,11 @@ export class Contacts extends PureComponent<{}, ContactsState> {
                       name="message" id="message" placeholder="Write me!"/>
                   </FormGroup>
                   <input type="hidden" name="bot-field"/>
+                  <Recaptcha
+                    ref="recaptcha"
+                    sitekey={RECAPTCHA_KEY}
+                    onChange={this.handleRecaptcha}
+                  />
                   <FormButton>Send!</FormButton>
                 </Form>
               </ContactsColumnPadding>

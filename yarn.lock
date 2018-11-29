@@ -859,6 +859,12 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-google-recaptcha@^0.9.2":
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/@types/react-google-recaptcha/-/react-google-recaptcha-0.9.2.tgz#8c6add6bae3b6ab86faee27e905a3b84c8a0bed6"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-helmet@^5.0.7":
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/@types/react-helmet/-/react-helmet-5.0.7.tgz#1cae65b2c37fe54cf56f40cd388836d4619dbc51"
