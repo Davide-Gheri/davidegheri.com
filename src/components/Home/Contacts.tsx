@@ -26,11 +26,16 @@ const ContactsContent = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  padding: 0 0 4rem;
 `;
 
 const ContactsColumn = styled.div`
-  width: 100%;
-  ${media.md`width: 50%`};
+  width: 80vw;
+  margin: 0 auto;
+  background: #2f365f;
+  box-shadow: rgba(39, 44, 49, 0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
+  border-radius: 3px;
+  ${media.md`max-width: 600px;`}
 `;
 
 const ContactsColumnPadding = styled.div`
@@ -147,7 +152,7 @@ export class ContactsPure extends PureComponent<ContactsProps, ContactsState> {
 
     const Checkmark = modal.level !== 'success' ? CheckmarkError : CheckmarkSuccess;
     return (
-      <Section background="#2f365f">
+      <Section background="#38a89d">
         <ContactsPadding>
           <ContactsTitle>Contacts</ContactsTitle>
           <ContactsContent>

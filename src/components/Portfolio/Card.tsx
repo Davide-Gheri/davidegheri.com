@@ -29,7 +29,6 @@ const CardContent = styled.main`
 `;
 
 const CardHeader = styled.header`
-
 `;
 
 const CardTag = styled.span`

@@ -1,5 +1,5 @@
 import React, { FormEvent, PureComponent } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export interface FormProps extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
   onSubmit: (e: FormEvent<any>) => void;
@@ -37,7 +37,7 @@ export const FormLabel = styled.label`
   margin-bottom: .5rem;
 `;
 
-export const FormInput = styled.input`
+const formControl = () => css`
   display: block;
   width: 100%;
   -webkit-appearance: none;-moz-appearance: none;appearance: none;
@@ -46,17 +46,19 @@ export const FormInput = styled.input`
   line-height: 1.25;
   padding: .5rem .75rem;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+  outline: none;
+  :focus {
+    outline: none;
+    border-color: #4dc0b5;
+  }
+`;
+
+export const FormInput = styled.input`
+  ${formControl()};
 `;
 
 export const FormTextarea = styled.textarea`
-  display: block;
-  width: 100%;
-  -webkit-appearance: none;-moz-appearance: none;appearance: none;
-  border: solid 1px #dae1e7;
-  border-radius: .25rem;
-  line-height: 1.25;
-  padding: .5rem .75rem;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+  ${formControl()};
   resize: vertical;
 `;
 
