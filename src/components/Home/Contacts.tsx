@@ -7,7 +7,7 @@ import { media } from '../../utils/styled';
 import { Form, FormGroup, FormInput, FormLabel, FormTextarea, FormButton } from '../Styled/Form';
 import { encode } from '../../utils';
 import { graphql, StaticQuery } from 'gatsby';
-import { ContactQuery, Pick2, Pick3, SiteQuery } from '../../interfaces';
+import { ContactNode, ContactQuery, Pick2, Pick3, SiteNode, SiteQuery } from '../../interfaces';
 
 const ContactsPadding = styled.div`
   position: relative;
@@ -57,7 +57,7 @@ const modalStyles: Styles = {
   },
 };
 
-type ContactsProps = Pick3<SiteQuery, 'site', 'siteMetadata', 'recaptcha'> & Pick2<ContactQuery, 'datoCmsContact', 'successMessage' | 'errorMessage'>;
+type ContactsProps = SiteQuery<Pick2<SiteNode, 'siteMetadata', 'recaptcha'>> & ContactQuery<Required<Pick<ContactNode, 'successMessage' | 'errorMessage'>>>;
 
 type ModalLevel = 'success' | 'error' | null;
 

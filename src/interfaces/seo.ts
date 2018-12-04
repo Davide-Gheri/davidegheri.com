@@ -25,6 +25,6 @@ export interface FaviconTag {
   };
 }
 
-export interface SeoQuery {
-  datoCmsSite: SeoNode;
+export interface SeoQuery<T extends SeoNode = SeoNode> {
+  datoCmsSite: T;
 }

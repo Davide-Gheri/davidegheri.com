@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import { chunk } from 'lodash';
-import { FooterQuery, FooterThanks } from '../../interfaces';
+import { FooterNode, FooterQuery, FooterThanks } from '../../interfaces';
 
 const FooterWrapper = styled.footer`
   position: fixed;
@@ -106,7 +106,7 @@ export default class Footer extends PureComponent<{}, {}> {
             }
           }
         }
-      `} render={(data: FooterQuery) => {
+      `} render={(data: FooterQuery<Required<FooterNode>>) => {
         return (
           <PureFooter data={data} ref={this.ref}/>
         );

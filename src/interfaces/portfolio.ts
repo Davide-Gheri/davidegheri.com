@@ -18,14 +18,14 @@ export interface PortfolioNode {
   tags?: TagNode[];
 }
 
-export interface PortfolioQuery {
+export interface PortfoliosQuery<T extends PortfolioNode = PortfolioNode> {
   allDatoCmsPortfolio: {
     edges: {
-      node: PortfolioNode;
+      node: T;
     }[];
   };
 }
 
-export interface SinglePortfolioQuery {
-  datoCmsPortfolio: PortfolioNode;
+export interface PortfolioQuery<T extends PortfolioNode = PortfolioNode> {
+  datoCmsPortfolio: T;
 }

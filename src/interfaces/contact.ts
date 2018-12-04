@@ -7,6 +7,6 @@ export interface ContactNode {
   errorMessage?: string;
 }
 
-export interface ContactQuery {
-  datoCmsContact: ContactNode;
+export interface ContactQuery<T extends ContactNode = ContactNode> {
+  datoCmsContact: T;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 import { Section, SectionTitle, SectionPadding } from '../Styled';
-import { PortfolioQuery } from '../../interfaces';
+import { PortfoliosQuery } from '../../interfaces';
 import { PortfolioGrid } from '../Portfolio/PortfolioGrid';
 
 export const Portfolio = () => (
@@ -36,6 +36,6 @@ export const Portfolio = () => (
           }
         }
       }
-    `} render={(data: PortfolioQuery) => <PortfolioGrid data={data}/>}/>
+    `} render={(data: PortfoliosQuery) => <PortfolioGrid data={data}/>}/>
   </Section>
 );

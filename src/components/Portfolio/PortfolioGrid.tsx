@@ -1,5 +1,5 @@
 import React, { PureComponent, RefObject } from 'react';
-import { PortfolioQuery } from '../../interfaces';
+import { PortfoliosQuery } from '../../interfaces';
 import styled from 'styled-components';
 import { media } from '../../utils/styled';
 import Card from './Card';
@@ -34,7 +34,7 @@ function resizeGridItem(item: HTMLElement, container: HTMLElement) {
   item.style.gridRowEnd = `span ${rowSpan}`;
 }
 
-export class PortfolioGrid extends PureComponent<{data: PortfolioQuery}> {
+export class PortfolioGrid extends PureComponent<{data: PortfoliosQuery}> {
   private gridRef: RefObject<any> = React.createRef<any>();
 
   resizeAllGridItems = () => {

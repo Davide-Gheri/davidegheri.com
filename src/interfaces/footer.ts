@@ -8,6 +8,6 @@ export interface FooterNode {
   thanks?: FooterThanks[];
 }
 
-export interface FooterQuery {
-  datoCmsFooter: FooterNode;
+export interface FooterQuery<T extends FooterNode = FooterNode> {
+  datoCmsFooter: T;
 }

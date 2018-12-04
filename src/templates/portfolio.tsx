@@ -17,12 +17,12 @@ import {
   CategoryLink,
   PortfolioImage,
 } from '../components/Styled';
-import { Pick2, SinglePortfolioQuery, SiteQuery } from '../interfaces';
-import { SeoQuery } from '../interfaces/seo';
+import { Pick2, PortfolioNode, PortfolioQuery, SiteNode, SiteQuery } from '../interfaces';
+import { SeoNode, SeoQuery } from '../interfaces/seo';
 import { ImageFluid } from '../interfaces/common';
 import { author, portfolioUrl, publisher, tagUrl } from '../utils';
 
-type PortfolioTemplateQuery = SinglePortfolioQuery & Pick2<SeoQuery, 'datoCmsSite', 'name' | 'globalSeo'> & SiteQuery;
+type PortfolioTemplateQuery = PortfolioQuery<Required<PortfolioNode>> & SeoQuery<Required<Pick<SeoNode, 'name' | 'globalSeo'>>> & SiteQuery<Pick2<SiteNode, 'siteMetadata', 'baseUrl'>>;
 
 const PortfolioTemplate = ({ data }: {data: PortfolioTemplateQuery, location: any}) => {
   return (
