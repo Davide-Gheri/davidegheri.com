@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Typist from 'react-typist';
-import { shuffleArray } from '../../utils';
+import { shuffleArray } from '@utils';
 
 export interface SkillsProps {
   skills: string[];

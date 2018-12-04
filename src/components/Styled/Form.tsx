@@ -1,5 +1,5 @@
 import React, { FormEvent, PureComponent } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from '@styled-components';
 
 export interface FormProps extends React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> {
   onSubmit: (e: FormEvent<any>) => void;
@@ -41,7 +41,7 @@ const formControl = () => css`
   display: block;
   width: 100%;
   -webkit-appearance: none;-moz-appearance: none;appearance: none;
-  border: solid 1px #dae1e7;
+  border: solid 1px ${props => props.theme.form.borderColor};
   border-radius: .25rem;
   line-height: 1.25;
   padding: .5rem .75rem;
@@ -49,7 +49,7 @@ const formControl = () => css`
   outline: none;
   :focus {
     outline: none;
-    border-color: #4dc0b5;
+    border-color: ${props => props.theme.form.focus.borderColor};
   }
 `;
 
@@ -67,11 +67,13 @@ export const FormButton = styled.button`
   padding: .5rem 1rem;
   border-radius: .25rem;
   background: transparent;
-  color: #fff;
-  border-color: #4dc0b5;
   cursor: pointer;
   transition: all .1s;
-  :hover:not([disabled]) {
-    background: #4dc0b5;
-  }
+  ${props => css`
+    color: ${props.theme.button.color};
+    border-color: ${props.theme.button.borderColor};
+    :hover:not([disabled]) {
+      background: ${props.theme.button.hover.background};
+    }
+  `};
 `;

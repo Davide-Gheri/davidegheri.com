@@ -13,6 +13,15 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "noEmit": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@utils/*": ["utils/*"],
+      "@utils": ["utils"],
+      "@theme": ["theme"],
+      "@interfaces": ["interfaces"],
+      "@components/*": ["components/*"],
+      "@styled-components": ["utils/styled/styled-components"]
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { PortfolioNode, TagNode } from '../interfaces';
+import { PortfolioNode, TagNode } from '@interfaces';
 
 export * from './styled';
 export * from './jsonSchema';

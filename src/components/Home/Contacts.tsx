@@ -1,13 +1,21 @@
 import React, { ChangeEvent, PureComponent } from 'react';
-import styled from 'styled-components';
 import Recaptcha from 'react-google-recaptcha';
 import Modal, { Styles } from 'react-modal';
-import { Section, CheckmarkSuccess, CheckmarkError } from '../Styled';
-import { media } from '../../utils/styled';
-import { Form, FormGroup, FormInput, FormLabel, FormTextarea, FormButton } from '../Styled/Form';
-import { encode } from '../../utils';
 import { graphql, StaticQuery } from 'gatsby';
-import { ContactNode, ContactQuery, Pick2, Pick3, SiteNode, SiteQuery } from '../../interfaces';
+import styled from '@styled-components';
+import {
+  Section,
+  CheckmarkSuccess,
+  CheckmarkError,
+  Form,
+  FormGroup,
+  FormInput,
+  FormLabel,
+  FormTextarea,
+  FormButton,
+} from '@components/Styled';
+import { media, encode } from '@utils';
+import { ContactNode, ContactQuery, Pick2, SiteNode, SiteQuery } from '@interfaces';
 
 const ContactsPadding = styled.div`
   position: relative;

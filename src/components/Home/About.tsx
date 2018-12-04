@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-import { media } from '../../utils';
-import { Section, SectionTitle, SectionPadding } from '../Styled';
 import { graphql, Link, StaticQuery } from 'gatsby';
-import { AboutNode, AboutQuery } from '../../interfaces';
+import styled from '@styled-components';
+import { media } from '@utils';
+import { Section, SectionTitle, SectionPadding } from '@components/Styled';
+import { AboutNode, AboutQuery } from '@interfaces';
 
 const Wrapper = styled(SectionPadding)`
   ${media.md`

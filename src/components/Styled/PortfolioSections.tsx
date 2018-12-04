@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { media } from '../../utils/styled';
+import styled from '@styled-components';
+import { media } from '@utils';
 
 export const PortfolioBackground = styled('div')<{background?: string}>`
   width: 100%;
@@ -28,7 +28,7 @@ export const PortfolioMeta = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #738a94;
+  color: ${props => props.theme.gray};
   font-weight: 600;
   text-transform: uppercase;
   font-size: .9rem;
@@ -40,7 +40,7 @@ export const PortfolioMeta = styled.div`
 `;
 
 export const PortfolioMetaDate = styled.time`
-  color: #3eb0ef;
+  color: ${props => props.theme.azure2};
 `;
 
 export const PortfolioTitle = styled('h1')<{color?: string}>`

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link, GatsbyLinkProps } from 'gatsby';
-import styled from 'styled-components';
 import { debounce } from 'lodash';
+import styled from '@styled-components';
 import { Navbar } from './Navbar';
 import { HeaderTitle, HeaderWrapper } from './HeaderSections';
 

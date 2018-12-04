@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { media } from '../../utils/styled';
 import Img from 'gatsby-image';
+import styled from '@styled-components';
+import { media } from '@utils';
 
 export const FeaturedSection = styled.section`
   width: 100%;

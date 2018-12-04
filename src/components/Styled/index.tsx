@@ -8,6 +8,7 @@ export * from './SectionTitle';
 export * from './Section';
 export * from './PortfolioSections';
 export * from './Checkmark';
+export * from './Form';
 
 export const DateDivider = styled.span`
   display: inline-block;
@@ -15,7 +16,7 @@ export const DateDivider = styled.span`
 `;
 
 export const CategoryLink = styled(Link)`
-  color: #26a6ed;
+  color: ${props => props.theme.azure};
   text-decoration: none;
   :hover {
     text-decoration: underline;

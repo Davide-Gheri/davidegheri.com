@@ -1,9 +1,9 @@
 import React, { PureComponent, Ref } from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import { chunk } from 'lodash';
-import { FooterNode, FooterQuery, FooterThanks } from '../../interfaces';
+import styled from '@styled-components';
+import { FooterNode, FooterQuery, FooterThanks } from '@interfaces';
 
 const FooterWrapper = styled.footer`
   position: fixed;

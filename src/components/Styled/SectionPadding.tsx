@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { media } from '../../utils/styled';
+import styled from '@styled-components';
+import { media } from '@utils';
 
 export const SectionPadding = styled.div`
   position: relative;

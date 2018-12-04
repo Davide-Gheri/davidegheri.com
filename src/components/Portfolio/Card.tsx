@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
-import { PortfolioNode } from '../../interfaces';
-import { portfolioUrl } from '../../utils';
+import styled from '@styled-components';
+import { PortfolioNode } from '@interfaces';
+import { portfolioUrl } from '@utils';
 
 const CardWrapper = styled.article`
   width: auto;

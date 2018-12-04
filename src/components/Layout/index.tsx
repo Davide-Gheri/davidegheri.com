@@ -1,10 +1,12 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 import { HelmetDatoCms } from 'gatsby-source-datocms';
-import Header from '../Header';
-import Footer from '../Footer';
+import { ThemeProvider } from '@styled-components';
+import { theme } from '@theme';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
 import './layout.css';
-import { SeoQuery } from '../../interfaces/seo';
+import { SeoQuery } from '@interfaces';
 
 interface LayoutProps {
   children: any;
@@ -18,17 +20,19 @@ interface PureLayoutProps extends LayoutProps {
 }
 
 export const PureLayout = ({children, header = true, footer = true, headerTransparent = true, data}: PureLayoutProps) => (
-  <>
-    <HelmetDatoCms favicon={data.datoCmsSite.faviconMetaTags}>
-      <html lang="it" />
-      <title>{data.datoCmsSite.globalSeo.siteName}</title>
-    </HelmetDatoCms>
-    {header && <Header transparent={headerTransparent} siteTitle={data.datoCmsSite.globalSeo.siteName as string} />}
-    <main>
-      {children}
-    </main>
-    {footer && <Footer/>}
-  </>
+  <ThemeProvider theme={theme}>
+    <>
+      <HelmetDatoCms favicon={data.datoCmsSite.faviconMetaTags}>
+        <html lang="it" />
+        <title>{data.datoCmsSite.globalSeo.siteName}</title>
+      </HelmetDatoCms>
+      {header && <Header transparent={headerTransparent} siteTitle={data.datoCmsSite.globalSeo.siteName as string} />}
+      <main>
+        {children}
+      </main>
+      {footer && <Footer/>}
+    </>
+  </ThemeProvider>
 );
 
 const Layout = (props: LayoutProps) => (

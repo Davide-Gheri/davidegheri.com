@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@styled-components';
 
 export const Navbar = styled('nav')<{transparent: boolean}>`
   margin: 0 auto;
@@ -15,5 +15,5 @@ export const Navbar = styled('nav')<{transparent: boolean}>`
   left: 0;
   color: white;
   transition: background-color .1s;
-  background: ${props => props.transparent ? 'transparent' : '#2f365f'};
+  background: ${props => props.transparent ? 'transparent' : props.theme.blue};
 `;

@@ -6,6 +6,8 @@ export * from './contact';
 export * from './footer';
 export * from './tag';
 export * from './site';
+export * from './seo';
+export * from './common';
 
 export type Pick2<T, K1 extends keyof T, K2 extends keyof T[K1]> = {
   [P1 in K1]-?: {

@@ -1,8 +1,8 @@
 import React from 'react';
-import Layout from '../components/Layout';
-import { PortfolioBackground, PortfolioWrapper, MainSection } from '../components/Styled';
-import styled from 'styled-components';
-import { media } from '../utils/styled';
+import Layout from '@components/Layout';
+import { PortfolioBackground, PortfolioWrapper, MainSection } from '@components/Styled';
+import styled from '@styled-components';
+import { media } from '@utils';
 
 const NotFoundContent = styled.div`
   display: flex;

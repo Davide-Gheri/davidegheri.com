@@ -1,5 +1,5 @@
 import React, { Component, RefObject } from 'react';
-import { randomValue, hexToRgb } from '../../../utils';
+import { randomValue, hexToRgb } from '@utils';
 import { Star } from './Star';
 
 export default class Stars extends Component {

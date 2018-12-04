@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-import Stars from '../Canvas/Stars';
-import Skills from './Skills';
 import { graphql, StaticQuery } from 'gatsby';
-import { AboutNode, AboutQuery } from '../../interfaces';
+import styled from '@styled-components';
+import Stars from '@components/Canvas/Stars';
+import Skills from './Skills';
+import { AboutNode, AboutQuery } from '@interfaces';
 
 const Wrapper = styled.div`
   position: relative;

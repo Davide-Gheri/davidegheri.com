@@ -1,14 +1,12 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-
-import Layout from '../components/Layout';
-import { About, FullScreenContent, Portfolio, Contacts } from '../components/Home';
 import Helmet from 'react-helmet';
-import { SeoQuery } from '../interfaces/seo';
-import { author, publisher } from '../utils';
-import { Pick2 } from '../interfaces';
+import Layout from '@components/Layout';
+import { About, FullScreenContent, Portfolio, Contacts } from '@components/Home';
+import { author, publisher } from '@utils';
+import { SeoNode, SeoQuery } from '@interfaces';
 
-const IndexPage = ({ data }: {data: Pick2<SeoQuery, 'datoCmsSite', 'name' | 'globalSeo'>}) => {
+const IndexPage = ({ data }: {data: SeoQuery<Required<Pick<SeoNode, 'name' | 'globalSeo'>>>}) => {
   return (
     <Layout>
       <Helmet>

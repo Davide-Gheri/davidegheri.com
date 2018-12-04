@@ -1,7 +1,7 @@
 import React, { PureComponent, RefObject } from 'react';
-import { PortfoliosQuery } from '../../interfaces';
-import styled from 'styled-components';
-import { media } from '../../utils/styled';
+import { PortfoliosQuery } from '@interfaces';
+import styled from '@styled-components';
+import { media } from '@utils';
 import Card from './Card';
 
 const GridWrapper = styled.div`

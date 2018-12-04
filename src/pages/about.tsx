@@ -2,11 +2,10 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { HelmetDatoCms } from 'gatsby-source-datocms';
-import Layout from '../components/Layout';
-import { Content, FeaturedImage, FeaturedSection, MainSection, ArticleContent } from '../components/Styled';
-import { AboutQuery, Pick2 } from '../interfaces';
-import { ImageFixed, ImageFluid } from '../interfaces/common';
 import { isString } from 'lodash';
+import Layout from '@components/Layout';
+import { Content, FeaturedImage, FeaturedSection, MainSection, ArticleContent } from '@components/Styled';
+import { AboutQuery, ImageFixed, ImageFluid, AboutNode } from '@interfaces';
 
 interface RowContentRemark {
   childMarkdownRemark: {
@@ -45,7 +44,7 @@ const RowContent = ({name, content}: RowContentProps) => {
   return <p/>;
 };
 
-const AboutPage = ({data}: {data: Pick2<AboutQuery, 'datoCmsAbout', 'seoMetaTags' | 'image' | 'page'>}) => {
+const AboutPage = ({data}: {data: AboutQuery<Required<Pick<AboutNode, 'seoMetaTags' | 'image' | 'page'>>>}) => {
   return(
     <Layout>
       {data.datoCmsAbout.seoMetaTags && (

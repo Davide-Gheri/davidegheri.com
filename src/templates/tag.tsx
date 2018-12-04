@@ -1,13 +1,11 @@
 import React from 'react';
-import Layout from '../components/Layout';
-import { PortfolioGrid } from '../components/Portfolio/PortfolioGrid';
-import { HelmetDatoCms } from 'gatsby-source-datocms';
-import { PortfolioHeader, PortfolioTitle, MainSection } from '../components/Styled';
 import { graphql } from 'gatsby';
-import { PortfoliosQuery, SiteQuery, TagQuery } from '../interfaces';
-import { portfolioUrl, tagUrl } from '../utils';
-import { ImageFluid } from '../interfaces/common';
-import { SeoNode, SeoQuery } from '../interfaces/seo';
+import { HelmetDatoCms } from 'gatsby-source-datocms';
+import Layout from '@components/Layout';
+import { PortfolioGrid } from '@components/Portfolio/PortfolioGrid';
+import { PortfolioHeader, PortfolioTitle, MainSection } from '@components/Styled';
+import { PortfoliosQuery, SiteQuery, TagQuery, SeoNode, SeoQuery, ImageFluid } from '@interfaces';
+import { portfolioUrl, tagUrl } from '@utils';
 
 type TagTemplateQuery = PortfoliosQuery & TagQuery & SeoQuery<Required<Pick<SeoNode, 'name' | 'globalSeo'>>> & SiteQuery;
 

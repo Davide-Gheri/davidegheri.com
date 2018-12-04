@@ -1,4 +1,5 @@
 const path = require(`path`);
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const makeRequest = (graphql, request) => new Promise((resolve, reject) => {
   // Query for article nodes to use in creating pages.
@@ -69,4 +70,21 @@ exports.createPages = ({ actions, graphql }) => {
     getPortfolios,
     getTags,
   ])
+};
+
+
+exports.onCreateWebpackConfig = ({
+  stage,
+  rules,
+  loaders,
+  plugins,
+  actions,
+}) => {
+  actions.setWebpackConfig({
+    resolve: {
+      plugins: [
+        new TsconfigPathsPlugin
+      ]
+    }
+  })
 };

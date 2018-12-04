@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { HelmetDatoCms } from 'gatsby-source-datocms';
-import Layout from '../components/Layout';
+import Layout from '@components/Layout';
 import {
   Content,
   MainSection,
@@ -16,11 +16,9 @@ import {
   DateDivider,
   CategoryLink,
   PortfolioImage,
-} from '../components/Styled';
-import { Pick2, PortfolioNode, PortfolioQuery, SiteNode, SiteQuery } from '../interfaces';
-import { SeoNode, SeoQuery } from '../interfaces/seo';
-import { ImageFluid } from '../interfaces/common';
-import { author, portfolioUrl, publisher, tagUrl } from '../utils';
+} from '@components/Styled';
+import { Pick2, PortfolioNode, PortfolioQuery, SiteNode, SiteQuery, SeoNode, SeoQuery, ImageFluid } from '@interfaces';
+import { author, portfolioUrl, publisher, tagUrl } from '@utils';
 
 type PortfolioTemplateQuery = PortfolioQuery<Required<PortfolioNode>> & SeoQuery<Required<Pick<SeoNode, 'name' | 'globalSeo'>>> & SiteQuery<Pick2<SiteNode, 'siteMetadata', 'baseUrl'>>;
 

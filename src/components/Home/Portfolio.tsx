@@ -1,8 +1,8 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-import { Section, SectionTitle, SectionPadding } from '../Styled';
-import { PortfoliosQuery } from '../../interfaces';
-import { PortfolioGrid } from '../Portfolio/PortfolioGrid';
+import { PortfoliosQuery } from '@interfaces';
+import { Section, SectionTitle, SectionPadding } from '@components/Styled';
+import { PortfolioGrid } from '@components/Portfolio/PortfolioGrid';
 
 export const Portfolio = () => (
   <Section background="#2f365f">
