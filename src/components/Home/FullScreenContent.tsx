@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Stars from '../Canvas/Stars';
 import Skills from './Skills';
 import { graphql, StaticQuery } from 'gatsby';
-import { AboutNode, AboutQuery, Pick2 } from '../../interfaces';
+import { AboutNode, AboutQuery } from '../../interfaces';
 
 const Wrapper = styled.div`
   position: relative;
@@ -34,7 +34,7 @@ export const FullScreenContent = ({siteTitle}: any) => (
             }
           }
         }
-      `} render={(data: Pick2<AboutQuery, 'datoCmsAbout', 'homepageSkills'>) => {
+      `} render={(data: AboutQuery<Required<Pick<AboutNode, 'homepageSkills'>>>) => {
         return (
           <Skills skills={data.datoCmsAbout.homepageSkills.map(s => s.skill)}/>
         );

@@ -11,6 +11,6 @@ export interface SiteNode {
   siteMetadata: SiteMetadata;
 }
 
-export interface SiteQuery {
-  site: SiteNode;
+export interface SiteQuery<T extends SiteNode = SiteNode> {
+  site: T;
 }

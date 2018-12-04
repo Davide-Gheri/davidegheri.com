@@ -29,6 +29,6 @@ export interface AboutNode {
   }[];
 }
 
-export interface AboutQuery {
-  datoCmsAbout: AboutNode;
+export interface AboutQuery<T extends AboutNode = AboutNode> {
+  datoCmsAbout: T;
 }
