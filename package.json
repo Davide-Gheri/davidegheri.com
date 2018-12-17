@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Davide Gheri <davide@davidegheri.com>",
   "dependencies": {
-    "babel-plugin-styled-components": "^1.9.2",
+    "babel-plugin-styled-components": "^1.10.0",
     "dotenv": "^6.1.0",
     "gatsby": "^2.0.58",
     "gatsby-image": "^2.0.22",
