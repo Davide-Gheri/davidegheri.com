@@ -16,7 +16,7 @@
     "gatsby-plugin-typescript": "^2.0.3",
     "gatsby-source-datocms": "^2.0.1",
     "gatsby-source-filesystem": "^2.0.13",
-    "gatsby-transformer-remark": "^2.1.14",
+    "gatsby-transformer-remark": "^2.2.0",
     "gatsby-transformer-sharp": "^2.1.9",
     "lodash": "^4.17.11",
     "normalize.css": "^8.0.0",
