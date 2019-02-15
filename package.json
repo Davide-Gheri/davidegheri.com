@@ -58,7 +58,7 @@
     "@types/styled-components": "^4.0.3",
     "babel-core": "^7.0.0-0",
     "babel-jest": "^23.6.0",
-    "babel-preset-gatsby": "^0.1.5",
+    "babel-preset-gatsby": "^0.1.7",
     "coveralls": "^3.0.2",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
