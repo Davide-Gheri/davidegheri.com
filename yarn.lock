@@ -895,9 +895,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@16.7.13":
-  version "16.7.13"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.13.tgz#d2369ae78377356d42fb54275d30218e84f2247a"
+"@types/react@16.9.7":
+  version "16.9.7"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.7.tgz#3b50cb38285a79fd325cf185e0d623e3e0dd2893"
+  integrity sha512-cF/zwVSOa/NQ5ZSLwUmAdeARgJkmu94shnqDO0dUOsp5roeS8SXtYv06uKeQMYgMjnP6dXH5CecxL+GibvqEFg==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
