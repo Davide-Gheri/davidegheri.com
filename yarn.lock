@@ -869,10 +869,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-google-recaptcha@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@types/react-google-recaptcha/-/react-google-recaptcha-0.10.0.tgz#43c2d205819344b8345a768c20dde18b9780a5d1"
-  integrity sha512-ZaqGm6+PIoSJlwSbQ5hDpiZsqm+d2Ypw/gedDDlNKpwlJHC3++tUfGUjFoPJ9/5USneVZa1xUaIRtu5dvseYKQ==
+"@types/react-google-recaptcha@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/react-google-recaptcha/-/react-google-recaptcha-1.1.1.tgz#7dd2a4dd15d38d8059a2753cd4a7e3485c9bb3ea"
+  integrity sha512-p/6804HmHCPTXmja0MgXb/K16Hc1rFw9F+gVhlsI9sN/Ax3Hag5pcoZ69F9MBdtonjh4FnDA+9nhDaLhxIrpnw==
   dependencies:
     "@types/react" "*"
 
