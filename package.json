@@ -21,7 +21,7 @@
     "lodash": "^4.17.11",
     "normalize.css": "^8.0.0",
     "react": "^16.13.0",
-    "react-dom": "^16.5.1",
+    "react-dom": "^16.13.0",
     "react-google-recaptcha": "^1.0.5",
     "react-helmet": "^5.2.0",
     "react-modal": "^3.6.1",
